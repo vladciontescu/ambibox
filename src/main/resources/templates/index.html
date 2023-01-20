@@ -1,0 +1,9 @@
+<div th:switch="${isLedOn}">
+    <div th:case="false">
+        <h2>LEDs are OFF!</h2>
+        <p><a href="/start">Start LEDs</a></p>
+    </div>
+    <div th:case="true">
+        <h2>Choose Color</h2>
+    </div>
+</div>
