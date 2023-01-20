@@ -34,7 +34,11 @@ public class LedService {
     @PreDestroy
     public void destroyStrip() {
         log.info("Destroying LED");
-        stopLed();
+        if (strip.isPresent()) {
+            strip.get().setBrightness(0);
+            strip.get().setStrip(Color.BLACK);
+            strip.get().render();
+        }
     }
 
     public void startLed() {
@@ -87,6 +91,7 @@ public class LedService {
     }
 
     private void initColors() {
+        brightness = 100;
         colorLed("RED");
         wait(500);
         colorLed("GREEN");
