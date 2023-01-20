@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class LedService {
     private Optional<LedStrip> strip = Optional.empty();
     @Getter
-    private Color ledColor = null;
+    private Color ledColor = Color.BLACK;
 
     @PostConstruct
     public void initStrip() {
