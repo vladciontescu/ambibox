@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LedController {
     private final LedService ledService;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String showColorPicker(Model model) {
-        model.addAttribute("isLedOn", String.valueOf(ledService.isLedOn()));
+        model.addAttribute("isLedOn", ledService.isLedOn());
         return "index";
     }
 
