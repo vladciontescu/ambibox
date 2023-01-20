@@ -9,6 +9,7 @@ import com.github.mbelling.ws281x.Color;
 import com.github.mbelling.ws281x.LedStrip;
 import com.github.mbelling.ws281x.LedStripType;
 import com.github.mbelling.ws281x.Ws281xLedStrip;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LedService {
     private Optional<LedStrip> strip = Optional.empty();
+    @Getter
     private Color ledColor = Color.BLACK;
     private int brightness = 0;
 
@@ -86,7 +88,7 @@ public class LedService {
         return brightness > 0 && !Color.BLACK.equals(ledColor);
     }
 
-    public String getLedColor() {
+    public String getLedColorString() {
         return MessageFormat.format("RGB({0}, {1}, {2})", ledColor.getRed(), ledColor.getGreen(), ledColor.getBlue());
     }
 
@@ -106,6 +108,16 @@ public class LedService {
             Thread.sleep(millis);
         } catch (Throwable e) {
             e.printStackTrace();
+        }
+    }
+
+    public void colorLed(java.awt.Color rgb) {
+        ledColor = new Color(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
+
+        if (strip.isPresent()) {
+            strip.get().setBrightness(brightness);
+            strip.get().setStrip(ledColor);
+            strip.get().render();
         }
     }
 }

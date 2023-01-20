@@ -1,16 +1,73 @@
-<div th:switch="${isLedOn}">
-    <div th:case=false>
-        <h2><a href="/start">Start LEDs</a></h2>
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ambibox</title>
+
+<!--    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>-->
+<!--    <link th:rel="stylesheet" th:href="@{/assets/bootstrap-colorpicker/css/bootstrap-colorpicker.css} "/>-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $('#cp2, #cp3a, #cp3b').colorpicker();
+        });
+    </script>
+
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">TV Ambient Lighting</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
-    <div th:case="*">
-        <h2>Choose Color</h2>
-        <div>
-            <p><a href="/colorLed?color=RED">RED</a></p>
-            <br>
-            <p><a href="/colorLed?color=GREEN">GREEN</a></p>
-            <br>
-            <p><a href="/colorLed?color=BLUE">BLUE</a></p>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5 mt-5">
+
+            <div th:switch="${isLedOn}">
+                <div class="row" th:case=false>
+                    <div class="col-sm-5 mt-5"><a class="btn btn-success" href="/start">Start LEDs</a></div>
+                </div>
+                <div th:case="*">
+                    <h2>Choose Color</h2>
+                    <div class="row">
+                        <div class="col-sm-3 mt-4"><a class="btn btn-danger btn-lg" href="/colorLed?color=RED"></a></div>
+                        <div class="col-sm-3 mt-4"><a class="btn btn-success btn-lg" href="/colorLed?color=GREEN"></a></div>
+                        <div class="col-sm-3 mt-4"><a class="btn btn-primary btn-lg" href="/colorLed?color=BLUE"></a></div>
+                    </div>
+
+                    <form method="post" th:object="${colors}">
+                        <div class="form-group">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" value="*{hex}" title="Choose your color" th:field="*{hex}">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Submit Color</button>
+                    </form>
+
+                    <h1><a class="btn btn-dark" href="/stop">Stop LEDs</a></h1>
+                </div>
+            </div>
+
         </div>
-        <h2><a href="/stop">Stop LEDs</a></h2>
     </div>
 </div>
+
+<!--<script th:src="@{/webjars/jquery/jquery.min.js}"></script>-->
+<!--<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
+<!--<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>-->
+<!--<script th:src="@{/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js}"></script>-->
+
+</body>
+</html>
