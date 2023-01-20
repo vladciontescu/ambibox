@@ -23,7 +23,7 @@ public class LedService {
     public void initStrip() {
         try {
             log.info("Initializing LED");
-            strip = Optional.of(new Ws281xLedStrip(18, 18, 800000, 10, 0, 0, false, LedStripType.WS2811_STRIP_GRB, false));
+            strip = Optional.of(new Ws281xLedStrip(170, 18, 800000, 10, 0, 0, false, LedStripType.WS2811_STRIP_GRB, false));
             initColors();
         } catch (Throwable e) {
             log.warn("Cannot initialize strip... continue in local mode");
