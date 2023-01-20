@@ -65,6 +65,8 @@ public class LedService {
 
     public boolean isLedOn() {
         int brightness = strip.map(LedStrip::getBrightness).orElse(this.brightness);
+        log.info("Brightness is: {}", brightness);
+        log.info("Black equals led color: {}", Color.BLACK.equals(ledColor));
         return brightness > 0 && !Color.BLACK.equals(ledColor);
     }
 
