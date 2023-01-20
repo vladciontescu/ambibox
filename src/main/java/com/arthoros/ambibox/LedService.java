@@ -19,6 +19,7 @@ public class LedService {
     private Optional<LedStrip> strip = Optional.empty();
     @Getter
     private Color ledColor = Color.BLACK;
+    private Color lastActiveColor = null;
     private int brightness = 0;
 
     @PostConstruct
@@ -45,7 +46,7 @@ public class LedService {
 
     public void startLed() {
         log.info("Starting LED");
-        ledColor = Color.WHITE;
+        ledColor = Optional.ofNullable(lastActiveColor).orElse(Color.WHITE);
         brightness = 100;
 
         if (strip.isPresent()) {
@@ -72,6 +73,7 @@ public class LedService {
 
     public void stopLed() {
         log.info("Stopping LED");
+        lastActiveColor = ledColor;
         ledColor = Color.BLACK;
         brightness = 0;
 
