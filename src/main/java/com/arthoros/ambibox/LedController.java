@@ -43,10 +43,10 @@ public class LedController {
     @PostMapping("/")
     public String save(@RequestBody Colors colors) {
         if (bucket.tryConsume(1)) {
-            log.info("Set color: {}", colors.getHex());
+            log.debug("Set color: {}", colors.getHex());
             ledService.colorLed(colors.getRgb());
         }
-        log.warn("Skipped request");
+        log.debug("Skipped request");
         return "redirect:/";
     }
 
