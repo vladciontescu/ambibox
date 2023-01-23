@@ -25,7 +25,7 @@ public class LedService {
     @PostConstruct
     public void initStrip() {
         try {
-            log.info("Initializing LED");
+            log.debug("Initializing LED");
             strip = Optional.of(new Ws281xLedStrip(170, 18, 800000, 10, 0, 0, false, LedStripType.WS2811_STRIP_GRB, false));
             initColors();
         } catch (Throwable e) {
@@ -36,7 +36,7 @@ public class LedService {
 
     @PreDestroy
     public void destroyStrip() {
-        log.info("Destroying LED");
+        log.debug("Destroying LED");
         if (strip.isPresent()) {
             strip.get().setBrightness(0);
             strip.get().setStrip(Color.BLACK);
@@ -45,7 +45,7 @@ public class LedService {
     }
 
     public void startLed() {
-        log.info("Starting LED");
+        log.debug("Starting LED");
         ledColor = Optional.ofNullable(lastActiveColor).orElse(Color.WHITE);
         brightness = 100;
 
@@ -57,7 +57,7 @@ public class LedService {
     }
 
     public void colorLed(String color) {
-        log.info("Coloring LED: {}", color);
+        log.debug("Coloring LED: {}", color);
         switch (color) {
             case "RED": ledColor = Color.RED; break;
             case "GREEN": ledColor = Color.GREEN; break;
@@ -72,7 +72,7 @@ public class LedService {
     }
 
     public void stopLed() {
-        log.info("Stopping LED");
+        log.debug("Stopping LED");
         lastActiveColor = ledColor;
         ledColor = Color.BLACK;
         brightness = 0;
@@ -85,8 +85,8 @@ public class LedService {
     }
 
     public boolean isLedOn() {
-        log.info("Brightness is: {}", brightness);
-        log.info("Black equals led color: {}", Color.BLACK.equals(ledColor));
+        log.debug("Brightness is: {}", brightness);
+        log.debug("Black equals led color: {}", Color.BLACK.equals(ledColor));
         return brightness > 0 && !Color.BLACK.equals(ledColor);
     }
 

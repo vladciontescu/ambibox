@@ -22,7 +22,7 @@ public class Colors {
         this.hex = hex;
     }
 
-    public void setHex(int rgb) {
+    public void setHexFromRgb(int rgb) {
         hex = "#" + Integer.toHexString(rgb).substring(2);
     }
 }
